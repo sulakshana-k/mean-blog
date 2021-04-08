@@ -1,0 +1,37 @@
+
+.readMode
+{
+  font-size: 25px;
+
+  /* Total columns in which text has to be divided. */
+  column-count:      2;
+
+  /* Space between the columns. */
+  column-gap:        40px;
+
+  /* Divider between columns. */
+  column-rule-style: solid;
+
+  /* Thickness of the divider. */
+  column-rule-width: 1px;
+
+  /* Colour of the divider */
+  column-rule-color: red;
+
+  /* Shorthand for column-rule properties.
+     Currently it will override the above specifications.
+     It here for demonstration purpose. */
+  column-rule: blue 2px solid;
+
+  /* Shorthand for setting 'column-width', and 'column-count' together. */  
+  columns: 300px 2;
+}
+
+/* h1 should span on all columns.
+   h1 has been defined inside div readMode in html. */
+h1
+{
+  column-span:  all;
+  text-align:   center;
+}
+

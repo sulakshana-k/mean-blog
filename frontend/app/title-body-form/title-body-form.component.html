@@ -1,0 +1,104 @@
+<p routerLink = "/home">Go to Dashboard</p>
+
+<!-- This form group contains blogTitle, body, and category accessed as `formControlName`. -->
+<form [formGroup] = "objFormGroup">
+
+  <ng-container *ngIf = "mReadMode === false">
+      <!-- Edit blog -->
+
+      <!-- Input -->
+      <label>Title:
+        <input id = "blogTitle"
+          formControlName = "blogTitle" 
+          pattern  = "[a-zA-Z0-9]*"
+          placeholder = "Enter title here!"
+          appWhitespaceValidator>
+
+      </label>
+
+      <label>Body:
+        <input
+          formControlName = "body"
+          placeholder = "Enter body here!">
+      </label>
+
+      <!-- Error checking -->
+      <!-- The above input forms are attached with formControlNames of fornGroups.
+           We have to perform error checking on values fetched by formControlNames.
+           We will fetch them by calling getter functions -->
+      
+
+      <!-- 'dirty':   When the user changes the values in a field, that field is marked dirty.
+           'touched': When the user puts focus in a field, that field is marked touched.
+
+
+           Putting these conditions prevents angular from displaying error messages at
+           the page load.
+           -->
+      <ng-container *ngIf = "(getBlogTitle.dirty || getBlogTitle.touched)" >
+        
+        <!-- Display error messages when the errors are found -->
+
+        <!-- 'getBlogTitle.errors.required':
+                     This results in error "cannot read property 'required' of null".
+                     Reason: Errors are not there always. '?' tells Angular render this 
+                     container only when we have errors, otherwise Angular tries to 
+                     render something that doesn't exist. -->
+
+        <div *ngIf = "getBlogTitle.errors?.required">
+          Please enter the title.
+        </div>
+
+        <div *ngIf = "getBlogTitle.errors?.minlength">
+          Minimum length required is 5.
+        </div>
+
+        <!-- <div *ngIf = "getBlogTitle.errors?.pattern">
+          Only alphabets and numbers are allowed.
+        </div> -->
+
+        <!-- Variable 'isWhitespace' has been defined inside the custom validator function. -->
+        <div *ngIf = "getBlogTitle.errors?.isWhitespace">
+          No spaces are allowed in the begining or the end of the title.
+        </div>
+
+      </ng-container>
+
+      <button (click) = "onSave()" > Save </button>
+  </ng-container>
+
+<!-- _________________________________________________________________________________ -->
+
+  <ng-container *ngIf = "mReadMode === true">
+
+    <div class = "readMode" >
+      <h1>
+        {{getBlogTitle.value}}
+      </h1>
+
+      {{getBody.value}}
+      
+    </div>
+  </ng-container>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

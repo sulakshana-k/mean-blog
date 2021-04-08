@@ -1,0 +1,172 @@
+<!-- Drop down list for "category" display options -->
+<div class = "border">
+	<div class ="DropDownLists" >
+
+		<div class = "toolTip_Category">Choose existing category or add new category. </div>
+
+		<label> Categories </label>
+			
+		<select [formControl] = "selectedCategoryName" (click) = "onCategorySelected()" >
+			<option *ngFor = "let category of this.getCategoriesFG.controls" >
+				{{category.controls.name.value}}
+			</option>
+		</select>
+	</div>
+	
+	<!-- Drop down list for "sort" options -->
+	<div class = "DropDownLists">
+
+		<div class = "toolTip_SortBy">Sort entries as per given options. </div>
+
+		<label> Sort by </label>
+		<select [formControl] = "mSelectedSortBy" (click) = "onSortBySelected()" >
+			<option *ngFor = "let i of mSortByOptions" [ngValue] = "i.option">
+				{{ i.option }}
+			</option>
+		</select>
+
+	</div>
+
+	<!-- Drop down list for "move to" options -->
+	<div class = "DropDownLists">
+
+		<div class = "toolTip_MoveTo">Select entries to move them to an existing category or add new category</div>
+
+		<label> Move to </label>
+		<select [formControl] = "mSelectedCategoryNameMoveTo" 
+				(click) 	= "onMoveToSelected()">
+			
+			<option *ngFor = "let category of categories" [ngValue]	= "category.name" >
+				{{category.name}}
+			</option>		
+		</select>
+	</div>
+
+	<!-- Radio buttons for changing views 
+		 * name and formControlName have to have the same name-->
+	<input type = "radio" name = "view" value = "gridView"  [formControl] = "view"> Grid View
+	<input type = "radio" name = "view" value = "tableView" [formControl] = "view"> Table View
+
+</div>
+
+<form [formGroup] = "objFormGroup">
+
+	<ng-container *ngIf = "blogs.length == 0" >
+
+		<div class = "border">
+			<div class = "Info"> No blogs to display! </div>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf = "blogs.length > 0">
+
+		<div class = "border">
+				<div class = "Info"> Existing {{blogs.length}} blogs are as follows: </div>
+		</div>
+
+			<ng-container *ngIf = "view.value === 'gridView'" >
+				<ul>
+
+				<div class = "border">
+					<div class = "GridView">
+
+					<ng-container *ngFor = "let checkboxesBlog of getCheckboxes_FormGroup.controls; let i = index;" >
+						<ng-container *ngIf = "checkboxesBlog.controls.visible.value === true">
+
+							<div class = "border">
+							<div class = "GridCells" >
+							
+									<!-- pre represents new line -->
+									<pre routerLink = "/editor/{{checkboxesBlog.controls.blogTitle.id}}">{{checkboxesBlog.controls.blogTitle.value }}</pre>
+									
+									<pre>Creation date: {{checkboxesBlog.controls.blogTitle.creationDate}}</pre>
+							
+									<ng-container [formGroup] = "checkboxesBlog">
+										<input type   = "checkbox"
+											   formControlName = "checkboxValue"
+											   (click) = "onCheckboxClicked( i )">
+									</ng-container>
+							</div>
+						</div>
+
+						</ng-container>
+
+					</ng-container>
+
+				  </div>
+			  </div>
+
+				</ul>
+			</ng-container>
+				
+
+			<ng-container *myElse = true> jhkjhkj  </ng-container>
+			
+			<ng-container *ngIf = "view.value === 'tableView'" >
+
+			
+			<div class = "border">
+			<div class = "tableView">
+
+				<!--  -->
+				<table>
+					<!-- 'thead' to group header elements together.  -->
+					<!-- 'th' represents individual header elements. -->
+					<thead>
+					<th> </th>
+					<th>S. No.</th>
+					<th>Title</th>
+					<th>Creation date</th>
+					<th>Modification date</th>
+					</thead>
+					<tr *ngFor = "let checkboxesBlog of filteredCheckBoxes; let i = index;" >
+				
+			<!-- <tr *ngFor = "let checkboxesBlog of getCheckboxes_FormGroup.controls; let i = index;" >
+						<ng-container *ngIf = "checkboxesBlog.controls.visible.value === true"> -->
+						
+						<td [formGroup] = "checkboxesBlog">	
+							<input type   	 = "checkbox"
+							 formControlName = "checkboxValue"
+							 (click) 		 = "onCheckboxClicked( i )">
+						</td>
+
+						<td>{{ i + 1 }}</td>
+						<td routerLink = "/editor/{{checkboxesBlog.controls.blogId.value}}"> 
+							{{ checkboxesBlog.controls.blogTitle.value }}
+						</td>
+						
+						<td>{{ checkboxesBlog.controls.creationDate.value }}</td>
+						<td>{{ checkboxesBlog.controls.modificationDate.value }}</td>
+						<!-- </ng-container> -->
+
+					</tr>
+				</table>
+		</div>
+		</div>
+			</ng-container>
+	</ng-container>
+
+</form>
+
+	<!-- 
+		<td routerLink = "/editor/{{checkboxesBlog.controls.blogId}}"> 
+				
+-->
+<div class = "border">
+	<div class = "selectAllButton">
+	<button (click) = "onSelectAll()" 
+			[disabled] = "disableGenericButtons"> 
+			{{ selectAllLabel }} </button>
+
+<!--
+	<button [formControl] = "mDisableMoveTo" (click) = "onDeleteSelected()" 
+			[disabled] = "mDisableMoveTo.disabled"> Delete selected </button>
+-->
+	</div>
+
+<div class = "newBlogButton">
+	<button (click) = "onDisplayNewInputForm()" 
+			routerLink = "/editor/{{blogs.length}}"> Add a new blog </button>
+	</div>
+</div>
+

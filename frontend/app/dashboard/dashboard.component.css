@@ -1,0 +1,303 @@
+
+/* This is the way to write common properties for all div elements 
+   
+   box-sizing:- It is used to tell the browsers to include border and padding
+                while calculating height and width of the div elements.
+                Otherwise, adding padding and border increases the overall 
+                size of the div.;
+*/
+* {
+  box-sizing: border-box;
+}
+
+.DropDownLists
+{
+	background-color: red;
+	border: 	2px solid black;
+  margin:   15 px;
+  padding: 	5px;
+
+  /* Displays this group of items in a row (horizontal).
+     Without 'display' this group of items will be displayed
+     as a single columns (vertical). 
+  */
+
+  /* These also can be put in a HTML table instead of using 
+     'display: table-cell'.
+
+     https://stackoverflow.com/questions/33080430/what-is-the-difference-between-the-table-element-and-css-displaytable
+  */
+	display: 	table-cell;
+}
+
+.toolTip_Category
+{
+  /* Here position: absolute is necessary to keep the tooltip out of its 
+     parent div. 
+     Due to absolute positioning we can place it w.r.t screen rather
+     than its parent div. */
+  position:         absolute;
+  top:              50px;
+  display:          none;
+  background-color: black;
+  color:            white;
+  font-size:        20px;
+}
+
+.toolTip_SortBy
+{
+  position:         absolute;
+  top:              50px;
+  display:          none;
+  background-color: black;
+  color:            white;
+  font-size:        20px;
+}
+
+.toolTip_MoveTo
+{
+  position:         absolute;
+  top:              50px;
+  display:          none;
+  background-color: black;
+  color:            white;
+  font-size:        20px;
+}
+
+.DropDownLists:hover .toolTip_Category
+{
+  display:          block;
+}
+
+.DropDownLists:hover .toolTip_SortBy
+{
+  display:          block;
+}
+
+.DropDownLists:hover .toolTip_MoveTo
+{
+  display:          block;
+}
+
+
+.GridView
+{
+  display:          grid;
+  grid-template-columns: auto auto auto auto;
+  grid-column-gap:  0px;
+  grid-row-gap:     10px;
+  padding:          10px;
+  background:       red;
+
+  justify-content:  space-start;
+
+  box-sizing:       border-box;
+}
+
+/* For colouring internal items of the list individually. */
+.GridCells
+{
+  text-align: center;
+  background-color: yellow;
+  font-size: 15px;
+  word-break: break-all;
+}
+
+/*.GridView > div
+
+https://www.w3schools.com/css/css_rwd_grid.asp
+{
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+*/
+
+
+
+.Info
+{
+  background-color: #FF6347;
+  padding:  10px;  
+}
+
+
+
+/* -------------------- Table -------------------- */
+
+.tableView
+{
+  border: 10px solid black ;
+  /* We give height/width to an object so that the content remains inside
+     that given height. */
+  /* But by default it flows out of the given dimensions. */
+  height: 300px;
+
+  /* To prevent the table contents from flowing out, we use 'overflow' 
+     property.
+
+     'Responsive table' is the buzz word here.
+
+     overflow-y: For preventing vertical overflow.
+     overflow-x: For preventing horizontal overflow.;
+     overflow:   Specify one value for horizontal and vertical overflows.; 
+
+     Options: 
+        hidden:- Content is clipped by scrollbars stay hidden.
+        visible:- (default) Content is allowed to overflow.
+        scroll:- Scrollbars are always present.
+        auto:- Scrollbars are present depending on the situation.
+        initial:- Sets the value to default.
+        inherit:- Inherits the property from its parent element.
+
+      https://www.w3schools.com/cssref/pr_pos_overflow.asp
+  */
+  
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+/* 'thead' is the group of header elements for a table. */
+/* th is an individual header element. */
+.tableView thead th
+{
+  /* When we can scroll the contents we may not want header to scroll up
+    and go out of sight.
+
+    Therefore we make the header 'sticky'. */
+
+  position: sticky;
+
+  /* CSS Syntax: static|absolute|fixed|relative|sticky|initial|inherit; 
+        https://www.w3schools.com/cssref/pr_class_position.asp
+  */
+
+  /* sticky on top. 
+     Relative to the table boundaries.
+     Negative value will take it out the boundary of the table. 
+  */
+
+  /* 'top' has no effect if 'position' is not specified.
+     'top' effects the vertical position of the 'positioned' item.
+
+     Options: auto|length|initial|inherit. 
+  */
+}
+
+/* 
+ * th: Header element. Header is bold by default.
+ * td: Cells. Text left aligned by default.
+ * tr: A row of 'td's. ;
+
+ * Resultant table here has double border. That is because
+ * we have specified 'th'(header) and 'td'(cell) both here and they have
+ * separate borders each.
+
+ ***** To have a single border line, use 'border-collapse set to collapse'.
+ * border-collapse: separate|collapse;
+
+ *
+ ***** To have ONLY the outer border use:
+  table
+  {
+    border: 1px solid black;
+  } 
+ */
+
+table, th, td
+{
+  /* Horizontal and Vertical borders both-  
+    border: 1px solid black; */
+  
+  
+  /* Only horizontal borders */
+  border-bottom: 1px solid red;
+
+  /* To have a single border line, use 'border-collapse:; collapse'.
+   * border-collapse: separate|collapse; 
+  border-collapse: collapse;
+*/
+  /* Keep spaces around the text. 
+  padding: 15px;*/
+}
+
+/* Decoration of header element of the table. */
+th
+{
+  height:         50px;
+  text-align:     center;
+  vertical-align: middle;
+
+  /* Header row's background colour. */
+  background-color: green;
+
+  /* Header row's text's colour. */
+  color: white;
+}
+
+/* Decoration of the rows of the table */
+tr
+{
+  height: 25px;
+}
+
+
+/*
+  To let alternate rows have alternate colours.
+
+  even: even numbered rows will be left white;
+  odd:  odd numbered rows will be left white;
+*/
+tr:nth-child(even)
+{
+  background-color: #f2f2f2;
+}
+
+
+/*
+ * tr:        Row in a table.
+ * hover:     Highlights rows when you move mouse over them.
+
+ * td:        Cell in a row.
+ * hover:     Highlights cells when you move mouse over them.
+ *
+ ** It is important to place hover feature on bottom of other
+ ** colour changing features so that it is able to overrides them.
+ */
+tr:hover
+{
+  background-color: red;
+}
+
+/* Makes table take all the horizontal space available. */
+table
+{
+   width: 100%;
+}
+
+.border
+{
+  background-color: pink;
+
+  /* Padding is for space inside this div. */
+  padding: 10px;
+  /* Margin is for space outside this div. */
+  margin: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
